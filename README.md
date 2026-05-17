@@ -25,7 +25,7 @@ A full-stack application that allows users to query a SQLite database using natu
 
 1. Install [Node.js](https://nodejs.org/).
 2. Install [Python 3.9+](https://www.python.org/).
-3. Install [Ollama](https://ollama.com/) and ensure it is running.
+3. Install [Ollama](https://ollama.com/) and ensure it is running (download firstfrom official website).
 
 ## Local Run Instructions
 
