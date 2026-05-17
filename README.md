@@ -9,17 +9,38 @@ A full-stack application that allows users to query a SQLite database using natu
 - **Dynamic Charting**: Automatically detects when users ask for charts or distributions and renders beautiful visualizations instead of standard tables.
 - **Theme Support**: Seamlessly toggles between sleek Light and Dark mode UIs.
 
-## Architecture
+## Architecture & LLM Agent Flow
 
-- **Backend**: FastAPI
-  - Parses natural language using `ollama`.
-  - Validates SQL using `sqlglot` to prevent unauthorized execution (blocks INSERT, UPDATE, DELETE, etc.).
-  - Extracts and strips hallucinatory tags, enforcing a strict `LIMIT 200` on all queries.
-  - Returns structured JSON to the frontend.
-- **Frontend**: React (Vite) + TailwindCSS + Framer Motion
-  - Clean, animated, and dynamic chat interface.
-  - Automatically renders SQL query results in a beautiful, readable table or dynamic Bar Chart based on context.
-- **Database**: SQLite (`mfg_ops.db`)
+![Architecture Diagram](Requirement/Screenshot/ArchitectureDiagram.png)
+
+1. **User Input (React Frontend)**: The user submits a natural language question via the UI.
+2. **Context Gathering (FastAPI Backend)**: The backend intercepts the request and reads the live schema (tables/columns) directly from the `mfg_ops.db` SQLite database.
+3. **LLM Translation (Ollama)**: The backend sends a carefully crafted system prompt containing the schema and the user's question to the local `llama3.2:3b` model. The LLM acts as the SQL agent to translate the English request into a raw SQL query.
+4. **Safety Validation (sqlglot)**: Before execution, the AST parser completely validates the AI-generated SQL to ensure it's safe (see Security section).
+5. **Execution & Formatting**: The backend executes the safe query against the database and returns the rows to the frontend as structured JSON.
+6. **Dynamic Rendering**: The frontend evaluates the result and renders either a DataTable or a Bar Chart based on the context of the query.
+
+## Security
+
+To safely execute AI-generated queries against the database, the backend implements strict validation using the `sqlglot` Abstract Syntax Tree (AST) parser:
+- **Read-Only Enforcement**: Checks the query root to ensure only `SELECT` operations are allowed.
+- **Deep AST Inspection**: Recursively walks through the entire query syntax tree to block hidden destructive operations (`INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `CREATE`, `REPLACE`, `PRAGMA`, etc.).
+- **Single Statement Enforcement**: Automatically blocks multi-statement SQL injection attempts.
+- **Hard Row Limits**: Injects or overrides `LIMIT` clauses to enforce a strict maximum of 200 rows per query, preventing database overload.
+- **Graceful Error Handling**: Returns structured JSON errors directly to the frontend rather than exposing raw server stack traces.
+
+## Assumptions Made
+
+- The database operations only require data retrieval (Read-Only). No writes are necessary from the chat interface.
+- The user will query the database primarily in English.
+- The host system has enough resources to run a 3B parameter model locally via Ollama.
+- The `mfg_ops.db` schema does not change drastically while the server is running (though it is dynamically extracted).
+
+## Known Limitations
+
+- **Small Model Nuances**: The `llama3.2:3b` is incredibly fast, but being a smaller model, it may occasionally struggle with highly complex analytical queries (like deep nested subqueries or complex window functions) compared to a 70B model.
+- **Hallucinations**: Occasionally, the LLM might attempt to query columns that do not exist, resulting in a syntax error passed back to the user.
+- **Single-User Scope**: The application uses a local SQLite database and basic chat history state, meaning it is not currently optimized for high-concurrency, multi-user production environments out of the box.
 
 ## Prerequisites
 
