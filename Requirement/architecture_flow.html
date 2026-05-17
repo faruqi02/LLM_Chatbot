@@ -68,7 +68,7 @@ sequenceDiagram
     FastAPI Backend-->>React Frontend: JSON { ok, rows, columns, sql_executed }
     deactivate FastAPI Backend
     
-    React Frontend-->>User: Renders text response and DataTable UI
+    React Frontend-->>User: Renders text response and DataTable or Chart UI
     deactivate React Frontend
     </div>
 
@@ -125,7 +125,7 @@ sequenceDiagram
     <h3>8. Rendering the Result (Frontend)</h3>
     <ul>
         <li><strong>State Update:</strong> React receives the JSON and adds a new "assistant" message to the <code>messages</code> array in state, embedding the raw data inside the message object.</li>
-        <li><strong>Component Rendering:</strong> The <code>&lt;PreviewMessage&gt;</code> component reads this data. It prints out the SQL query that was used, and uses a custom <code>&lt;DataTable&gt;</code> component to dynamically render the rows and columns into a clean, readable table on the user's screen.</li>
+        <li><strong>Component Rendering:</strong> The <code>&lt;PreviewMessage&gt;</code> component reads this data. It prints out the SQL query that was used, and uses a custom <code>&lt;DataTable&gt;</code> component to dynamically render the rows and columns into a clean, readable table, or a dynamic Bar Chart based on the context, on the user's screen.</li>
     </ul>
 
 </body>

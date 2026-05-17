@@ -73,8 +73,11 @@ Open the provided `localhost` URL in your browser.
 ### Chatbot Interface
 ![Chatbot Interface](Requirement/Screenshot/Chatbot.png)
 
-### Generate Chart
-![Generate Chart](Requirement/Screenshot/GenerateChart.png)
+### Generate Chart and Table (Example 1)
+![Generate Chart and Table 1](Requirement/Screenshot/GenerateChart%26Table%281%29.png)
 
-### Generate Table
-![Generate Table](Requirement/Screenshot/GenerateTable.png)
+### Generate Chart and Table (Example 2)
+![Generate Chart and Table 2](Requirement/Screenshot/GenerateChart%26Table%282%29.png)
+
+### Generate Table List
+![Generate Table List](Requirement/Screenshot/GenerateTableList.png)

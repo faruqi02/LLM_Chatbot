@@ -2,10 +2,12 @@ import sqlite3
 import re
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import ollama
 import sqlglot
 import sqlglot.expressions as exp
+import os
 
 app = FastAPI()
 
@@ -17,6 +19,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount Requirement directory for static HTML serving
+req_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Requirement"))
+if os.path.exists(req_path):
+    app.mount("/Requirement", StaticFiles(directory=req_path), name="Requirement")
 
 DB_PATH = "mfg_ops.db"
 

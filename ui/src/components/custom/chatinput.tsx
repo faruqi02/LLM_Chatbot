@@ -23,7 +23,7 @@ const suggestedActions = [
     {
         title: 'Show chart of',
         label: 'top 10 recent alarms',
-        action: 'Show chart of top 10 recent alarm machine based on the machine id',
+        action: 'Show me a chart of top 10 recent alarm machine based on the machine id.',
     },
 ];
 
