@@ -57,3 +57,14 @@ npm install
 npm run dev
 ```
 Open the provided `localhost` URL in your browser to interact with the chatbot.
+
+## Examples
+
+### Chatbot Interface
+![Chatbot Interface](Requirement/screenshot/Chatbot.png)
+
+### Generate Chart
+![Generate Chart](Requirement/screenshot/GenerateChart.png)
+
+### Generate Table
+![Generate Table](Requirement/screenshot/GenerateTable.png)
