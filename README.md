@@ -61,10 +61,10 @@ Open the provided `localhost` URL in your browser to interact with the chatbot.
 ## Examples
 
 ### Chatbot Interface
-![Chatbot Interface](Requirement/screenshot/Chatbot.png)
+![Chatbot Interface](Requirement/Screenshot/Chatbot.png)
 
 ### Generate Chart
-![Generate Chart](Requirement/screenshot/GenerateChart.png)
+![Generate Chart](Requirement/Screenshot/GenerateChart.png)
 
 ### Generate Table
-![Generate Table](Requirement/screenshot/GenerateTable.png)
+![Generate Table](Requirement/Screenshot/GenerateTable.png)
