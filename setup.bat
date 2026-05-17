@@ -21,5 +21,26 @@ if %errorlevel% equ 0 (
 )
 
 echo.
-echo Setup complete! Your backend is ready to use %MODEL_NAME%.
+echo [3/4] Setting up Backend virtual environment...
+cd backend
+if not exist "venv\Scripts\activate.bat" (
+    echo Creating virtual environment...
+    python -m venv venv
+) else (
+    echo Virtual environment already exists.
+)
+echo Activating virtual environment and installing dependencies...
+call venv\Scripts\activate.bat
+pip install -r requirements.txt
+cd ..
+
+echo.
+echo [4/4] Setting up Frontend dependencies...
+cd ui
+echo Installing npm packages...
+call npm install
+cd ..
+
+echo.
+echo Setup complete! Your application is fully configured and ready to run.
 pause

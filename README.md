@@ -29,16 +29,28 @@ A full-stack application that allows users to query a SQLite database using natu
 
 ## Local Run Instructions
 
-### 1. Setup Model
+### 1. Setup Environment
 
-Run the included setup script to download the Llama 3.2:3b model for Ollama:
+Run the included setup script to automatically download the Llama model, create the Python virtual environment, install backend dependencies, and install frontend Node modules:
 ```bat
 setup.bat
 ```
 
-### 2. Run the Backend
+### 2. Run the Application
 
-Navigate to the `backend` directory, install dependencies, and start the FastAPI server:
+Run the included project script to automatically start both the FastAPI backend and the React frontend simultaneously:
+```bat
+runproject.bat
+```
+The script will automatically open your browser to the chatbot interface.
+
+---
+
+### Manual Setup & Run (Alternative)
+
+If you prefer to run the components manually without the batch scripts:
+
+**1. Run the Backend**
 ```bat
 cd backend
 python -m venv venv
@@ -48,15 +60,13 @@ uvicorn main:app --reload
 ```
 The backend API will run at `http://localhost:8000`.
 
-### 3. Run the Frontend
-
-Navigate to the `ui` directory, install dependencies, and start the development server:
+**2. Run the Frontend**
 ```bat
 cd ui
 npm install
 npm run dev
 ```
-Open the provided `localhost` URL in your browser to interact with the chatbot.
+Open the provided `localhost` URL in your browser.
 
 ## Examples
 
